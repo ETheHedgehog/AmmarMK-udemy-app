@@ -1,0 +1,52 @@
+.courseCard {
+    cursor: pointer;
+    margin: 0.4em;
+    max-width: 240px;
+}
+
+.courseImg {
+    border: 1px solid lightgray;
+    transition: all 100ms;
+}
+
+.courseImg:hover {
+    filter: brightness(80%);
+}
+
+.courseTitle,
+.coursePrice {
+    display: block;
+    font-weight: bold;
+    margin: 0.5em 0;
+}
+
+.courseAuthor,
+.ratingNumbers {
+    font-size: 0.8em;
+    color: gray;
+    margin: 0.4em 0;
+}
+
+.ratingNumbers {
+    font-weight: 600;
+}
+
+.rating {
+    color: #b4690e;
+    font-size: 0.8em;
+    font-weight: 800;
+}
+
+.rating i {
+    color: #e59819;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}

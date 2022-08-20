@@ -1,0 +1,50 @@
+.mainContainerCol {
+    display: flex;
+    max-width: 1340px;
+    width: 100%;
+    margin: 2em auto;
+    flex-direction: column;
+}
+
+.mainContainerCol>* {
+    margin: 1rem 1rem 0 1rem;
+}
+
+.mainContainerCol>p {
+    font-size: 1.2rem;
+}
+
+.courseBar {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    list-style: none;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.courseBarItem {
+    cursor: pointer;
+    margin: 0 1em 0 0;
+    font-weight: bold;
+    color: gray;
+    transition: all 200ms;
+}
+
+.courseBarItem:hover {
+    color: black;
+}
+
+.courseBarItemActive {
+    color: black;
+}
+
+.serif {
+    font-family: Georgia, Times, times new roman, serif;
+}
+
+@media only screen and (max-width: 649px) {
+    .mainContainerCol {
+        margin: 0 auto;
+    }
+}
