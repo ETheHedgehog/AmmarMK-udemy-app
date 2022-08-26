@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is Phase 2, courses are grabbed from a json-server using fetch.
 
 ## Available Scripts
 

@@ -2,7 +2,7 @@ import CourseSection from './CourseSection';
 import styles from '../styles/FirstSection.module.css';
 
 const FirstSection = (props) => {
-    let categories = props.categories.map((category, index) => {
+    const categories = props.categories.map((category, index) => {
         return (
             <li
                 key={index}

@@ -12,7 +12,7 @@ const CourseSection = (props) => {
             >
                 Explore Python
             </a>
-            <CourseContainer courses={props.courses}></CourseContainer>
+            <CourseContainer></CourseContainer>
         </div>
     );
 };
