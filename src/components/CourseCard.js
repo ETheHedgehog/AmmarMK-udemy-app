@@ -12,7 +12,7 @@ const CourseImage = (props) => {
 
 const CourseTitle = (props) => {
     return (
-        <a href="" className={styles.courseTitle}>
+        <a href="/" className={styles.courseTitle}>
             {props.title}
         </a>
     );

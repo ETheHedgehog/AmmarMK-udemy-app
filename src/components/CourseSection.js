@@ -7,7 +7,7 @@ const CourseSection = (props) => {
             <h3 className={styles.sectionItem}>{props.title}</h3>
             <p className={styles.sectionItem}>{props.description}</p>
             <a
-                href="#"
+                href="/"
                 className={`${styles.btnOutline} ${styles.sectionItem}`}
             >
                 Explore Python
