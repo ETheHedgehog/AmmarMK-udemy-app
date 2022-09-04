@@ -1,0 +1,73 @@
+.serif {
+    font-family: Georgia, Times, times new roman, serif;
+}
+
+.inlineLink {
+    color: #5624d0;
+    text-decoration: underline;
+    font-size: 0.8em;
+    font-weight: 800;
+}
+
+.inlineLink:hover {
+    color: #401b9c;
+}
+
+.centerContents {
+    justify-content: center;
+}
+
+.centerItems {
+    align-items: center;
+}
+
+.itemGrow {
+    flex-grow: 1;
+}
+
+.itemShrink {
+    flex-shrink: 1;
+}
+
+.mainContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2em auto 0 auto;
+}
+
+.container,
+.container *,
+.container ::before,
+.container ::after {
+    box-sizing: border-box;
+}
+
+.containerCol {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.btnOutline {
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: bold;
+    border: 1px solid black;
+    color: black !important;
+    padding: 0.7em 0.85em;
+    transition: all 200ms;
+}
+
+.btnOutline:hover {
+    background-color: rgba(0, 0, 0, .04);
+}
+
+.btnFill {
+    font-size: 0.85em;
+    font-weight: bold;
+    border: 1px solid black;
+    background-color: black;
+    color: white !important;
+    padding: 0.7em 0.85em;
+}

@@ -1,5 +1,6 @@
-import CourseContainer from './CourseContainer';
-import styles from '../styles/CourseSection.module.css';
+import CourseContainer from '../CourseContainer/CourseContainer';
+import styles from './CourseSection.module.css';
+import utilityStyles from '../../styles/Utility.module.css';
 
 const CourseSection = (props) => {
     return (
@@ -8,7 +9,7 @@ const CourseSection = (props) => {
             <p className={styles.sectionItem}>{props.description}</p>
             <a
                 href="/"
-                className={`${styles.btnOutline} ${styles.sectionItem}`}
+                className={`${utilityStyles.btnOutline} ${styles.sectionItem}`}
             >
                 Explore Python
             </a>

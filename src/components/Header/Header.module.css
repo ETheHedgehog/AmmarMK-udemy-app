@@ -1,0 +1,52 @@
+.headerContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 1340px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.headerContainer img {
+    width: 100%;
+}
+
+.floatCard {
+    max-width: 25em;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .08), 0 4px 12px rgba(0, 0, 0, .08);
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    padding: 1em;
+    align-self: flex-start;
+}
+
+.floatCard p {
+    font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 1014px) {
+    .floatCard {
+        top: 5%;
+        left: 2%;
+    }
+}
+
+@media only screen and (max-width: 649px) {
+    .floatCard {
+        position: static;
+        max-width: 100%;
+        margin-top: 12em;
+        box-shadow: none;
+    }
+
+    .headerContainer img {
+        min-height: 12em;
+        min-width: 40.2em;
+        position: absolute;
+        right: 0;
+    }
+}

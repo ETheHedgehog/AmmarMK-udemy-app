@@ -1,4 +1,4 @@
-import styles from '../styles/CourseCard.module.css';
+import styles from './CourseCard.module.css';
 
 const CourseImage = (props) => {
     return (
@@ -23,9 +23,9 @@ const CourseAuthor = (props) => {
 };
 
 const CourseStars = (props) => {
-    let numFullStars = parseInt(props.rating);
-    let numHalfStars = props.rating - numFullStars >= 0.4 ? 1 : 0;
-    let numEmptyStars = 5 - numFullStars - numHalfStars;
+    const numFullStars = parseInt(props.rating);
+    const numHalfStars = props.rating - numFullStars >= 0.4 ? 1 : 0;
+    const numEmptyStars = 5 - numFullStars - numHalfStars;
     let key = 1;
     let starList = [];
     for (let i = 0; i < numFullStars; i++) {
