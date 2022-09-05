@@ -17,11 +17,6 @@
     margin: 0.5em;
 }
 
-.logo {
-    height: 34px;
-    cursor: pointer;
-}
-
 .navList {
     display: flex;
     height: 100%;

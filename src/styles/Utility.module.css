@@ -1,3 +1,8 @@
+.logo {
+    height: 34px;
+    cursor: pointer;
+}
+
 .serif {
     font-family: Georgia, Times, times new roman, serif;
 }

@@ -11,7 +11,11 @@ const NavbarLogo = () => {
     return (
         <div className={`${styles.navBarItem} ${styles.navLogo}`}>
             <Link to="/">
-                <img src={udemyLogoURL} alt="Logo" className={styles.logo} />
+                <img
+                    src={udemyLogoURL}
+                    alt="Logo"
+                    className={utilityStyles.logo}
+                />
             </Link>
         </div>
     );
