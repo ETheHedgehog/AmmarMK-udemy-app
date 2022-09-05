@@ -44,7 +44,7 @@ const NavbarList = () => {
     return (
         <ul className={styles.navList}>
             <li className={`${styles.navBarItem} ${styles.navBarItem2}`}>
-                <Link to="/">Categories</Link>
+                <Link to="/nothing">Categories</Link>
             </li>
             <li className={`${styles.navBarItem} ${styles.navBarItem30}`}>
                 <form action="">
@@ -66,28 +66,28 @@ const NavbarList = () => {
                 </form>
             </li>
             <li className={`${styles.navBarItem} ${styles.navBarItem2}`}>
-                <Link to="/">Udemy Business</Link>
+                <Link to="/nothing">Udemy Business</Link>
             </li>
             <li className={`${styles.navBarItem} ${styles.navBarItem2}`}>
-                <Link to="/">Teach on Udemy</Link>
+                <Link to="/nothing">Teach on Udemy</Link>
             </li>
             <li className={`${styles.navBarItem} ${styles.navBarItem1}`}>
-                <Link to="/">
+                <Link to="/nothing">
                     <img src={shoppingCartURL} alt="Cart" width="30" />
                 </Link>
             </li>
             <li className={`${styles.navBarItem} ${styles.navBarItem2}`}>
-                <Link to="/" className={utilityStyles.btnOutline}>
+                <Link to="/nothing" className={utilityStyles.btnOutline}>
                     Log in
                 </Link>
             </li>
             <li className={`${styles.navBarItem} ${styles.navBarItem2}`}>
-                <Link to="/" className={utilityStyles.btnFill}>
+                <Link to="/nothing" className={utilityStyles.btnFill}>
                     Sign up
                 </Link>
             </li>
             <li className={`${styles.navBarItem} ${styles.navBarItem1}`}>
-                <Link to="/">
+                <Link to="/nothing">
                     <img
                         src={earthGridURL}
                         alt="Language"
