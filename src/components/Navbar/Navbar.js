@@ -25,7 +25,7 @@ const NavbarList = () => {
     const navigate = useNavigate();
     const [searchParam, setSearchParam] = useState('');
     const inputRef = useRef(null);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const setSearchParams = useSearchParams()[1];
 
     const changeHandle = (event) => {
         const search = event.target.value;
@@ -110,12 +110,10 @@ const NavbarMenu = () => {
 
 const Navbar = () => {
     return (
-        <nav>
-            <div className={styles.navContainer}>
-                <NavbarLogo></NavbarLogo>
-                <NavbarList></NavbarList>
-                <NavbarMenu></NavbarMenu>
-            </div>
+        <nav className={styles.navContainer}>
+            <NavbarLogo></NavbarLogo>
+            <NavbarList></NavbarList>
+            <NavbarMenu></NavbarMenu>
         </nav>
     );
 };

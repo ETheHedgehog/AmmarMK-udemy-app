@@ -1,7 +1,14 @@
 .courseCard {
     cursor: pointer;
+    color: black;
+    text-decoration: none;
     margin: 0.4em;
     max-width: 240px;
+}
+
+.courseCard:hover,
+.courseCard:visited {
+    color: black;
 }
 
 .courseImg {
@@ -41,12 +48,12 @@
     color: #e59819;
 }
 
-a {
+.courseCard a {
     text-decoration: none;
     color: inherit;
 }
 
-a:visited {
+.courseCard a:visited {
     text-decoration: none;
     color: inherit;
 }

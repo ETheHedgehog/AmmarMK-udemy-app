@@ -12,7 +12,7 @@ export const DataContext = () => useContext(courseData);
 
 const initialState = {
     courses: [],
-    isLoading: false,
+    isLoading: true,
     error: '',
 };
 
@@ -41,7 +41,7 @@ const CourseDataProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const fetchCourses = useCallback(async () => {
-        dispatch('FETCHING_DATA');
+        dispatch({ type: 'FETCHING_DATA' });
         let data = await fetch('http://localhost:3001/info');
         let json = await data.json();
         dispatch({ type: 'SUCCESS', payload: json.courses });
@@ -49,7 +49,7 @@ const CourseDataProvider = ({ children }) => {
 
     useEffect(() => {
         fetchCourses().catch(() => {
-            dispatch('FAILURE');
+            dispatch({ type: 'FAILURE' });
         });
     }, [fetchCourses]);
 

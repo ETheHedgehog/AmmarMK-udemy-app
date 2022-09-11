@@ -26,7 +26,8 @@ const filterCourses = (searchParam) => {
 
 const CourseContainer = () => {
     const courseData = DataContext();
-    const [searchParams, setSearchParams] = useSearchParams();
+    // console.log(courseData);
+    const searchParams = useSearchParams()[0];
     const courses = courseData.courses
         .filter(filterCourses(searchParams.get('search') || ''))
         .map(createCourseCardJSX);

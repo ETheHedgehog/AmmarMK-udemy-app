@@ -12,15 +12,17 @@ const CourseImage = (props) => {
 };
 
 const CourseTitle = (props) => {
-    return (
-        <Link to={`/courses/${props.id}`} className={styles.courseTitle}>
-            {props.title}
-        </Link>
-    );
+    return <div className={styles.courseTitle}>{props.title}</div>;
 };
 
 const CourseAuthor = (props) => {
-    return <p className={styles.courseAuthor}>{props.author}</p>;
+    return (
+        <p className={styles.courseAuthor}>
+            {props.author.map((author) => {
+                return author.name + ',';
+            })}
+        </p>
+    );
 };
 
 const CourseStars = (props) => {
@@ -50,7 +52,7 @@ const CourseRatings = (props) => {
             <span className={styles.rating}>{props.rating}</span>
             <CourseStars rating={props.rating}></CourseStars>
             <span className={styles.ratingNumbers}>
-                {`(${props.ratingNumber.toLocaleString('en-US')})`}
+                {`(${props.ratingCount.toLocaleString('en-US')})`}
             </span>
         </div>
     );
@@ -64,16 +66,16 @@ const CoursePrice = (props) => {
 
 const CourseCard = (props) => {
     return (
-        <div className={styles.courseCard}>
+        <Link to={`courses/${props.id}`} className={styles.courseCard}>
             <CourseImage image={props.image}></CourseImage>
             <CourseTitle title={props.title} id={props.id}></CourseTitle>
-            <CourseAuthor author={props.author}></CourseAuthor>
+            <CourseAuthor author={props.instructors}></CourseAuthor>
             <CourseRatings
                 rating={props.rating}
-                ratingNumber={props.ratings}
+                ratingCount={props.ratingCount}
             ></CourseRatings>
             <CoursePrice price={props.price}></CoursePrice>
-        </div>
+        </Link>
     );
 };
 
