@@ -1,4 +1,5 @@
-import styles from '../styles/CourseCard.module.css';
+import styles from './CourseCard.module.css';
+import { Link } from 'react-router-dom';
 
 const CourseImage = (props) => {
     return (
@@ -12,9 +13,9 @@ const CourseImage = (props) => {
 
 const CourseTitle = (props) => {
     return (
-        <a href="" className={styles.courseTitle}>
+        <Link to={`/courses/${props.id}`} className={styles.courseTitle}>
             {props.title}
-        </a>
+        </Link>
     );
 };
 
@@ -23,9 +24,9 @@ const CourseAuthor = (props) => {
 };
 
 const CourseStars = (props) => {
-    let numFullStars = parseInt(props.rating);
-    let numHalfStars = props.rating - numFullStars >= 0.4 ? 1 : 0;
-    let numEmptyStars = 5 - numFullStars - numHalfStars;
+    const numFullStars = parseInt(props.rating);
+    const numHalfStars = props.rating - numFullStars >= 0.4 ? 1 : 0;
+    const numEmptyStars = 5 - numFullStars - numHalfStars;
     let key = 1;
     let starList = [];
     for (let i = 0; i < numFullStars; i++) {
@@ -65,7 +66,7 @@ const CourseCard = (props) => {
     return (
         <div className={styles.courseCard}>
             <CourseImage image={props.image}></CourseImage>
-            <CourseTitle title={props.title}></CourseTitle>
+            <CourseTitle title={props.title} id={props.id}></CourseTitle>
             <CourseAuthor author={props.author}></CourseAuthor>
             <CourseRatings
                 rating={props.rating}

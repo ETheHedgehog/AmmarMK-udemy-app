@@ -1,0 +1,1 @@
+json-server --watch courses.json -p 3001

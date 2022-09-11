@@ -1,8 +1,8 @@
-import CourseSection from './CourseSection';
-import styles from '../styles/FirstSection.module.css';
+import CourseSection from '../CourseSection/CourseSection';
+import styles from './FirstSection.module.css';
 
 const FirstSection = (props) => {
-    let categories = props.categories.map((category, index) => {
+    const categories = props.categories.map((category, index) => {
         return (
             <li
                 key={index}
