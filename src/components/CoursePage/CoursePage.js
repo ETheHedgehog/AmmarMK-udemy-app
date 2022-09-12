@@ -8,6 +8,8 @@ import { DataContext } from '../CourseDataProvider/CourseDataProvider';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import { forwardRef, useContext, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const CourseNavBar = ({ course }) => {
     return (
@@ -31,7 +33,29 @@ const CourseNavBar = ({ course }) => {
     );
 };
 
+const CourseStars = ({ rating }) => {
+    const numFullStars = parseInt(rating);
+    const numHalfStars = rating - numFullStars >= 0.4 ? 1 : 0;
+    const numEmptyStars = 5 - numFullStars - numHalfStars;
+    let key = 1;
+    let starList = [];
+    for (let i = 0; i < numFullStars; i++) {
+        starList.push(<i key={key++} className="fa-solid fa-star"></i>);
+    }
+    if (numHalfStars === 1) {
+        starList.push(
+            <i key={key++} className="fa-solid fa-star-half-stroke"></i>
+        );
+    }
+    for (let i = 0; i < numEmptyStars; i++) {
+        starList.push(<i key={key++} className="fa-regular fa-star"></i>);
+    }
+
+    return starList;
+};
+
 const CourseHeader = forwardRef((props, ref) => {
+    const { isLoading } = DataContext();
     const { course } = props;
     const courseBreadcrumb = course.breadcrumb.map((item, index) => {
         return (
@@ -64,61 +88,76 @@ const CourseHeader = forwardRef((props, ref) => {
                     <Breadcrumb
                         className={`${styles.headerItem} ${styles.courseBreadcrumb}`}
                     >
-                        {courseBreadcrumb}
+                        {isLoading ? <Skeleton /> : courseBreadcrumb}
                     </Breadcrumb>
                     <h1
                         className={`${styles.headerItem} ${styles.courseTitle}`}
                     >
-                        {course.title}
+                        {isLoading ? <Skeleton /> : course.title}
                     </h1>
                     <p
                         className={`${styles.headerItem} ${styles.courseSummary}`}
                     >
-                        {course.subTitle}
+                        {isLoading ? <Skeleton /> : course.subTitle}
                     </p>
                     <div
                         className={`${styles.headerItem} ${styles.courseStats}`}
                     >
                         <span className={styles.courseRating}>
-                            {course.rating}
+                            {isLoading ? <Skeleton /> : course.rating}
                         </span>
                         <span className={styles.courseStars}>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star-half-stroke"></i>
+                            {isLoading ? (
+                                <Skeleton />
+                            ) : (
+                                <CourseStars
+                                    rating={course.rating}
+                                ></CourseStars>
+                            )}
                         </span>{' '}
                         <Link
                             to={'/nothing'}
                             className={styles.courseRateCount}
                         >
-                            ({course.ratingCount.toLocaleString('en-US')}{' '}
-                            ratings)
+                            {' '}
+                            {isLoading ? (
+                                <Skeleton />
+                            ) : (
+                                `(${course.ratingCount.toLocaleString(
+                                    'en-US'
+                                )} ratings)`
+                            )}
                         </Link>
                         <span className={styles.courseEnrollment}>
-                            {course.students.toLocaleString('en-US')} students
+                            {isLoading ? (
+                                <Skeleton />
+                            ) : (
+                                `${course.students.toLocaleString(
+                                    'en-US'
+                                )} students`
+                            )}{' '}
                         </span>
                     </div>
                     <div
                         className={`${styles.headerItem} ${styles.courseAuthors}`}
                     >
-                        Created by {courseAuthors}
+                        Created by {isLoading ? <Skeleton /> : courseAuthors}
                     </div>
                     <div
                         className={`${styles.headerItem} ${styles.courseMeta}`}
                     >
                         <span>
                             <i className="fa-solid fa-circle-exclamation"></i>
-                            Last Updated {course.updated}
+                            Last Updated{' '}
+                            {isLoading ? <Skeleton /> : course.updated}
                         </span>
                         <span>
                             <i className="fa-solid fa-language"></i>
-                            {course.language}
+                            {isLoading ? <Skeleton /> : course.language}
                         </span>
                         <span>
                             <i className="fa-solid fa-closed-captioning"></i>
-                            {course.captions}
+                            {isLoading ? <Skeleton /> : course.captions}
                         </span>
                     </div>
                 </div>
@@ -143,6 +182,7 @@ const CourseNavigation = () => {
 };
 
 const CourseSummary = (props) => {
+    const { isLoading } = DataContext();
     const { summary } = props;
     const summaryItems = summary.map((item, index) => {
         return (
@@ -158,7 +198,11 @@ const CourseSummary = (props) => {
         <div className={`${styles.summaryBox} ${styles.mainItem}`}>
             <h2 className={styles.summaryTitle}>What you'll learn</h2>
             <div className={styles.summaryItems}>
-                <ul className={styles.summaryList}>{summaryItems}</ul>
+                {isLoading ? (
+                    <Skeleton count={2} />
+                ) : (
+                    <ul className={styles.summaryList}>{summaryItems}</ul>
+                )}
             </div>
         </div>
     );
@@ -288,18 +332,24 @@ const CourseAccordion = forwardRef((props, ref) => {
 
 const CourseSections = ({ contents }) => {
     const sectionRefs = useRef([]);
+    const { isLoading } = DataContext();
     return (
         <div className={styles.mainItem}>
             <h2 className={styles.sectionIntro}>Course content</h2>
-            <CourseAccordion
-                contents={contents}
-                ref={sectionRefs}
-            ></CourseAccordion>
+            {isLoading ? (
+                <Skeleton count={20} />
+            ) : (
+                <CourseAccordion
+                    contents={contents}
+                    ref={sectionRefs}
+                ></CourseAccordion>
+            )}
         </div>
     );
 };
 
 const CourseRequirements = (props) => {
+    const { isLoading } = DataContext();
     const requirements = props.requirements.map((item, index) => {
         return (
             <div key={index} className={styles.requirementBox}>
@@ -311,13 +361,16 @@ const CourseRequirements = (props) => {
     return (
         <div className={styles.mainItem}>
             <h2 className={styles.sectionIntro}>Requirements</h2>
-            <ul className={styles.requirementsList}>{requirements}</ul>
+            <ul className={styles.requirementsList}>
+                {isLoading ? <Skeleton /> : requirements}
+            </ul>
         </div>
     );
 };
 
 const CourseDescription = ({ description, forWho }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const { isLoading } = DataContext();
     const showMore = () => {
         setIsExpanded((old) => {
             return !old;
@@ -352,7 +405,7 @@ const CourseDescription = ({ description, forWho }) => {
                     }`}
                 >
                     <div className={styles.courseDescription}>
-                        {description}
+                        {isLoading ? <Skeleton count={10} /> : description}
                     </div>
                     <h2 className={styles.sectionIntro}>
                         Who is this course for?
@@ -369,6 +422,7 @@ const CourseDescription = ({ description, forWho }) => {
 
 const InstructorInfo = ({ instructor }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const { isLoading } = DataContext();
     const showMore = () => {
         setIsExpanded((old) => {
             return !old;
@@ -388,36 +442,54 @@ const InstructorInfo = ({ instructor }) => {
     return (
         <div className={styles.instructorInfo}>
             <div className={styles.instructorName}>
-                <Link to={'/nothing'}>{instructor.name}</Link>
+                <Link to={'/nothing'}>
+                    {isLoading ? <Skeleton /> : instructor.name}
+                </Link>
             </div>
             <div className={styles.instructorDescription}>
-                {instructor.description}
+                {isLoading ? <Skeleton /> : instructor.description}
             </div>
             <div className={styles.instructorStatsContainer}>
                 <div className={styles.instructorStatsItem}>
-                    <img
-                        src={`${process.env.PUBLIC_URL}${instructor.picture}`}
-                        alt="instructor"
-                    ></img>
+                    {isLoading ? (
+                        <Skeleton circle={true} />
+                    ) : (
+                        <img
+                            src={`${process.env.PUBLIC_URL}${instructor.picture}`}
+                            alt="instructor"
+                        ></img>
+                    )}
                 </div>
                 <ul
                     className={`${styles.instructorStatsItem} ${styles.instructorStats}`}
                 >
                     <li className={styles.instructorStat}>
                         <i className="fa-solid fa-star"></i>
-                        <span>{instructor.rating} Instructor Rating</span>
+                        <span>
+                            {isLoading ? <Skeleton /> : instructor.rating}{' '}
+                            Instructor Rating
+                        </span>
                     </li>
                     <li className={styles.instructorStat}>
                         <i className="fa-solid fa-medal"></i>
-                        <span>{instructor.reviews} Reviews</span>
+                        <span>
+                            {isLoading ? <Skeleton /> : instructor.reviews}{' '}
+                            Reviews
+                        </span>
                     </li>
                     <li className={styles.instructorStat}>
                         <i className="fa-solid fa-user-group"></i>
-                        <span>{instructor.students} Students</span>
+                        <span>
+                            {isLoading ? <Skeleton /> : instructor.students}{' '}
+                            Students
+                        </span>
                     </li>
                     <li className={styles.instructorStat}>
                         <i className="fa-solid fa-circle-play"></i>
-                        <span>{instructor.courses} Courses</span>
+                        <span>
+                            {isLoading ? <Skeleton /> : instructor.courses}{' '}
+                            Courses
+                        </span>
                     </li>
                 </ul>
             </div>
@@ -426,10 +498,14 @@ const InstructorInfo = ({ instructor }) => {
                     isExpanded && styles.expandedInstructor
                 }`}
             >
-                <div
-                    className={styles.instructorAbout}
-                    dangerouslySetInnerHTML={{ __html: instructor.about }}
-                ></div>
+                {isLoading ? (
+                    <Skeleton count={3} />
+                ) : (
+                    <div
+                        className={styles.instructorAbout}
+                        dangerouslySetInnerHTML={{ __html: instructor.about }}
+                    ></div>
+                )}
             </div>
             <button className={styles.showMoreBtn} onClick={showMore}>
                 {text}
@@ -439,6 +515,7 @@ const InstructorInfo = ({ instructor }) => {
 };
 
 const CourseInstructors = (props) => {
+    const { isLoading } = DataContext();
     const instructors = props.instructors.map((instructor, index) => {
         return (
             <InstructorInfo
@@ -450,7 +527,9 @@ const CourseInstructors = (props) => {
     return (
         <div className={styles.mainItem}>
             <h2 className={styles.sectionIntro}>Instructors</h2>
-            <div className={styles.instructorsContainer}>{instructors}</div>
+            <div className={styles.instructorsContainer}>
+                {isLoading ? <Skeleton count={8} /> : instructors}
+            </div>
         </div>
     );
 };
@@ -465,27 +544,6 @@ const RatingStars = ({ count }) => {
         starList.push(<i key={key++} className="fa-regular fa-star"></i>);
     }
     return <div className={styles.ratingStars}>{starList}</div>;
-};
-
-const CourseStars = ({ rating }) => {
-    const numFullStars = parseInt(rating);
-    const numHalfStars = rating - numFullStars >= 0.4 ? 1 : 0;
-    const numEmptyStars = 5 - numFullStars - numHalfStars;
-    let key = 1;
-    let starList = [];
-    for (let i = 0; i < numFullStars; i++) {
-        starList.push(<i key={key++} className="fa-solid fa-star"></i>);
-    }
-    if (numHalfStars === 1) {
-        starList.push(
-            <i key={key++} className="fa-solid fa-star-half-stroke"></i>
-        );
-    }
-    for (let i = 0; i < numEmptyStars; i++) {
-        starList.push(<i key={key++} className="fa-regular fa-star"></i>);
-    }
-
-    return <div className={styles.ratingSummaryStars}>{starList}</div>;
 };
 
 const ReviewItem = ({ review, count }) => {
@@ -546,6 +604,7 @@ const CourseReviews = ({ reviews, rating }) => {
     const [selectedRating, setSelectedRating] = useState('0');
     const [searchParams, setSearchParams] = useState('');
     const inputRef = useRef(null);
+    const { isLoading } = DataContext();
     const searchHandle = (event) => {
         event.preventDefault();
         setSearchParams(inputRef.current.value);
@@ -614,13 +673,25 @@ const CourseReviews = ({ reviews, rating }) => {
                 <h2 className={styles.sectionIntro}>Student feedback</h2>
                 <div className={styles.feedbackSummaryContainer}>
                     <div className={styles.ratingSummary}>
-                        <div className={styles.ratingSummaryRate}>{rating}</div>
-                        <CourseStars rating={rating}></CourseStars>
-                        <div className={styles.ratingSummarySub}>
-                            Course Rating
-                        </div>
+                        {isLoading ? (
+                            <Skeleton circle={true} />
+                        ) : (
+                            <>
+                                <div className={styles.ratingSummaryRate}>
+                                    {rating}
+                                </div>
+                                <div className={styles.ratingSummaryStars}>
+                                    <CourseStars rating={rating}></CourseStars>
+                                </div>
+                                <div className={styles.ratingSummarySub}>
+                                    Course Rating
+                                </div>
+                            </>
+                        )}
                     </div>
-                    <div className={styles.ratingDetails}>{ratings}</div>
+                    <div className={styles.ratingDetails}>
+                        {isLoading ? <Skeleton count={5} /> : ratings}
+                    </div>
                 </div>
             </div>
             <div className={styles.mainItem}>
@@ -652,7 +723,7 @@ const CourseReviews = ({ reviews, rating }) => {
                             <option value="1">1</option>
                         </select>
                     </form>
-                    {reviewList}
+                    {isLoading ? <Skeleton count={10} /> : reviewList}
                     <button
                         className={styles.seeMoreBtn}
                         onClick={clickHandler}
@@ -773,31 +844,37 @@ const FloatingCourseCard = ({ course, inView }) => {
 
 const MainCourseContent = (props) => {
     const { course, inView } = props;
+    const { isLoading } = DataContext();
     return (
         <div className={styles.mainContainer}>
             <div className={styles.mainBox}>
-                <CourseSummary summary={course.summary}></CourseSummary>
-                <CourseSections contents={course.contents}></CourseSections>
+                <CourseSummary
+                    summary={isLoading ? [] : course.summary}
+                ></CourseSummary>
+                <CourseSections
+                    contents={isLoading ? {} : course.contents}
+                ></CourseSections>
                 <CourseRequirements
-                    requirements={course.requirements}
+                    requirements={isLoading ? [] : course.requirements}
                 ></CourseRequirements>
                 <CourseDescription
-                    description={course.description}
-                    forWho={course.forWho}
+                    description={isLoading ? '' : course.description}
+                    forWho={isLoading ? [] : course.forWho}
                 ></CourseDescription>
                 <CourseInstructors
-                    instructors={course.instructors}
+                    instructors={isLoading ? [] : course.instructors}
                 ></CourseInstructors>
                 <CourseReviews
-                    reviews={course.feedback}
-                    rating={course.rating}
+                    reviews={isLoading ? {} : course.feedback}
+                    rating={isLoading ? undefined : course.rating}
                 ></CourseReviews>
             </div>
-
-            <FloatingCourseCard
-                course={course}
-                inView={inView}
-            ></FloatingCourseCard>
+            {isLoading ? undefined : (
+                <FloatingCourseCard
+                    course={course}
+                    inView={inView}
+                ></FloatingCourseCard>
+            )}
         </div>
     );
 };
@@ -812,11 +889,20 @@ const CoursePage = () => {
     const course = coursesData.courses.find(
         (course) => course.id === parseInt(courseId)
     );
-    if (coursesData.isLoading) return <h1>Hi</h1>;
+    // if (coursesData.isLoading) return <h1>Hi</h1>;
     return (
         <>
-            <CourseNavBar course={course}></CourseNavBar>
-            <CourseHeader course={course} ref={ref}></CourseHeader>
+            {coursesData.isLoading ? undefined : (
+                <CourseNavBar course={course}></CourseNavBar>
+            )}
+            <CourseHeader
+                course={
+                    coursesData.isLoading
+                        ? { breadcrumb: [], instructors: [] }
+                        : course
+                }
+                ref={ref}
+            ></CourseHeader>
             <CourseNavigation></CourseNavigation>
             <MainCourseContent
                 course={course}

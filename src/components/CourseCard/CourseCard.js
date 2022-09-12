@@ -1,5 +1,7 @@
 import styles from './CourseCard.module.css';
 import { Link } from 'react-router-dom';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const CourseImage = (props) => {
     return (
@@ -65,6 +67,17 @@ const CoursePrice = (props) => {
 };
 
 const CourseCard = (props) => {
+    if (props.loading) {
+        return (
+            <div className={styles.courseCard} style={{ width: 240 }}>
+                <Skeleton height={135} />
+                <Skeleton count={1} height="2rem" />
+                <Skeleton count={1} height="0.85rem" />
+                <Skeleton count={1} height="0.85rem" />
+                <Skeleton count={1} width={50} />
+            </div>
+        );
+    }
     return (
         <Link to={`courses/${props.id}`} className={styles.courseCard}>
             <CourseImage image={props.image}></CourseImage>
