@@ -12,6 +12,7 @@
 }
 
 .courseImg {
+    width: 100%;
     border: 1px solid lightgray;
     transition: all 100ms;
 }

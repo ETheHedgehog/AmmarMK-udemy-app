@@ -15,18 +15,32 @@ const CourseNavBar = ({ course }) => {
     return (
         <nav className={styles.courseNavBar}>
             <div className={styles.courseNavBarContainer}>
-                <h1 className={styles.navBarTitle}>{course.title}</h1>
-                <div className={styles.navBarStats}>
-                    <span className={styles.courseRating}>{course.rating}</span>
-                    <span className={styles.courseStars}>
-                        <i className="fa-solid fa-star"></i>
-                    </span>{' '}
-                    <Link to={'/nothing'} className={styles.courseRateCount}>
-                        ({course.ratingCount.toLocaleString('en-US')} ratings)
-                    </Link>
-                    <span className={styles.courseEnrollment}>
-                        {course.students.toLocaleString('en-US')} students
+                <div className={styles.courseNavBarDetails}>
+                    <h1 className={styles.navBarTitle}>{course.title}</h1>
+                    <div className={styles.navBarStats}>
+                        <span className={styles.courseRating}>
+                            {course.rating}
+                        </span>
+                        <span className={styles.courseStars}>
+                            <i className="fa-solid fa-star"></i>
+                        </span>{' '}
+                        <Link
+                            to={'/nothing'}
+                            className={styles.courseRateCount}
+                        >
+                            ({course.ratingCount.toLocaleString('en-US')}{' '}
+                            ratings)
+                        </Link>
+                        <span className={styles.courseEnrollment}>
+                            {course.students.toLocaleString('en-US')} students
+                        </span>
+                    </div>
+                </div>
+                <div className={styles.courseNavBarBuy}>
+                    <span className={styles.courseNavBarPrice}>
+                        ${course.price}
                     </span>
+                    <div className={styles.courseNavBuyBtn}>Buy now</div>
                 </div>
             </div>
         </nav>
@@ -90,6 +104,17 @@ const CourseHeader = forwardRef((props, ref) => {
                     >
                         {isLoading ? <Skeleton /> : courseBreadcrumb}
                     </Breadcrumb>
+                    <div className={`${styles.headerItem} ${styles.headerImageContainer}`}>
+                        {isLoading ? (
+                            <Skeleton height={337.5} />
+                        ) : (
+                            <img
+                                src={`${process.env.PUBLIC_URL}${course.image}`}
+                                alt={course.title}
+                                className={styles.headerImage}
+                            />
+                        )}
+                    </div>
                     <h1
                         className={`${styles.headerItem} ${styles.courseTitle}`}
                     >
@@ -159,6 +184,23 @@ const CourseHeader = forwardRef((props, ref) => {
                             <i className="fa-solid fa-closed-captioning"></i>
                             {isLoading ? <Skeleton /> : course.captions}
                         </span>
+                    </div>
+                    <div className={styles.courseBuyingOptions}>
+                        <span className={styles.coursePrice}>
+                            ${course.price}
+                        </span>
+                        <div className={styles.addToCartBtn}>Add to cart</div>
+                        <span className={styles.moneyGuaranteeHeader}>
+                            30-Day Money-Back Guarantee
+                        </span>
+                        <span className={styles.lifetimeAccessHeader}>
+                            Full lifetime access
+                        </span>
+                        <div className={styles.buyOptionsHeader}>
+                            <div>Share</div>
+                            <div>Gift this course</div>
+                            <div>Apply Coupon</div>
+                        </div>
                     </div>
                 </div>
             </div>
