@@ -1,6 +1,6 @@
 import styles from './Navbar.module.css';
 import utilityStyles from '../../styles/Utility.module.css';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, createSearchParams } from 'react-router-dom';
 import { useRef, useState } from 'react';
 
 const shoppingCartURL = `${process.env.PUBLIC_URL}/images/shopping-cart-svgrepo-com.svg`;
@@ -25,7 +25,6 @@ const NavbarList = () => {
     const navigate = useNavigate();
     const [searchParam, setSearchParam] = useState('');
     const inputRef = useRef(null);
-    const [searchParams, setSearchParams] = useSearchParams();
 
     const changeHandle = (event) => {
         const search = event.target.value;
@@ -34,11 +33,12 @@ const NavbarList = () => {
 
     const clickHandle = (event) => {
         event.preventDefault();
-        navigate('/');
-        if (inputRef.current.value)
-            setSearchParams({
-                search: inputRef.current.value,
-            });
+        navigate({
+            pathname: '/',
+            search: `?${createSearchParams({
+                search: searchParam,
+            })}`,
+        });
     };
 
     return (
@@ -110,12 +110,10 @@ const NavbarMenu = () => {
 
 const Navbar = () => {
     return (
-        <nav>
-            <div className={styles.navContainer}>
-                <NavbarLogo></NavbarLogo>
-                <NavbarList></NavbarList>
-                <NavbarMenu></NavbarMenu>
-            </div>
+        <nav className={styles.navContainer}>
+            <NavbarLogo></NavbarLogo>
+            <NavbarList></NavbarList>
+            <NavbarMenu></NavbarMenu>
         </nav>
     );
 };

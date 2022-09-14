@@ -1,5 +1,7 @@
 import styles from './CourseCard.module.css';
 import { Link } from 'react-router-dom';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const CourseImage = (props) => {
     return (
@@ -12,15 +14,17 @@ const CourseImage = (props) => {
 };
 
 const CourseTitle = (props) => {
-    return (
-        <Link to={`/courses/${props.id}`} className={styles.courseTitle}>
-            {props.title}
-        </Link>
-    );
+    return <div className={styles.courseTitle}>{props.title}</div>;
 };
 
 const CourseAuthor = (props) => {
-    return <p className={styles.courseAuthor}>{props.author}</p>;
+    return (
+        <p className={styles.courseAuthor}>
+            {props.author.map((author) => {
+                return author.name + ',';
+            })}
+        </p>
+    );
 };
 
 const CourseStars = (props) => {
@@ -50,7 +54,7 @@ const CourseRatings = (props) => {
             <span className={styles.rating}>{props.rating}</span>
             <CourseStars rating={props.rating}></CourseStars>
             <span className={styles.ratingNumbers}>
-                {`(${props.ratingNumber.toLocaleString('en-US')})`}
+                {`(${props.ratingCount.toLocaleString('en-US')})`}
             </span>
         </div>
     );
@@ -63,17 +67,28 @@ const CoursePrice = (props) => {
 };
 
 const CourseCard = (props) => {
+    if (props.loading) {
+        return (
+            <div className={styles.courseCard} style={{ width: 240 }}>
+                <Skeleton height={135} />
+                <Skeleton count={1} height="2rem" />
+                <Skeleton count={1} height="0.85rem" />
+                <Skeleton count={1} height="0.85rem" />
+                <Skeleton count={1} width={50} />
+            </div>
+        );
+    }
     return (
-        <div className={styles.courseCard}>
+        <Link to={`courses/${props.id}`} className={styles.courseCard}>
             <CourseImage image={props.image}></CourseImage>
             <CourseTitle title={props.title} id={props.id}></CourseTitle>
-            <CourseAuthor author={props.author}></CourseAuthor>
+            <CourseAuthor author={props.instructors}></CourseAuthor>
             <CourseRatings
                 rating={props.rating}
-                ratingNumber={props.ratings}
+                ratingCount={props.ratingCount}
             ></CourseRatings>
             <CoursePrice price={props.price}></CoursePrice>
-        </div>
+        </Link>
     );
 };
 

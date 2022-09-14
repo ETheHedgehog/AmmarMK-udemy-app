@@ -4,7 +4,9 @@ import { DataContext } from '../CourseDataProvider/CourseDataProvider';
 import { useSearchParams } from 'react-router-dom';
 
 const createCourseCardJSX = (course) => {
-    return <CourseCard key={course.id} {...course}></CourseCard>;
+    return (
+        <CourseCard key={course.id} {...course} loading={false}></CourseCard>
+    );
 };
 
 //takes a search parameter and returns a callback function for the filter method;
@@ -26,13 +28,24 @@ const filterCourses = (searchParam) => {
 
 const CourseContainer = () => {
     const courseData = DataContext();
-    const [searchParams, setSearchParams] = useSearchParams();
+    // console.log(courseData);
+    const searchParams = useSearchParams()[0];
     const courses = courseData.courses
         .filter(filterCourses(searchParams.get('search') || ''))
         .map(createCourseCardJSX);
 
     if (courseData.error) {
         return courseData.error;
+    } else if (courseData.isLoading) {
+        return (
+            <div className={styles.courseContainer}>
+                <CourseCard loading={true}></CourseCard>
+                <CourseCard loading={true}></CourseCard>
+                <CourseCard loading={true}></CourseCard>
+                <CourseCard loading={true}></CourseCard>
+                <CourseCard loading={true}></CourseCard>
+            </div>
+        );
     }
     return <div className={styles.courseContainer}>{courses}</div>;
 };
