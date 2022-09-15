@@ -33,12 +33,14 @@ const NavbarList = () => {
 
     const clickHandle = (event) => {
         event.preventDefault();
-        navigate({
-            pathname: '/',
-            search: `?${createSearchParams({
-                search: searchParam,
-            })}`,
-        });
+        if (searchParam)
+            navigate({
+                pathname: '/',
+                search: `?${createSearchParams({
+                    search: searchParam,
+                })}`,
+            });
+        else navigate('/');
     };
 
     return (

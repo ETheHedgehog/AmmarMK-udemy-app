@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import styles from './CoursePage.module.css';
 import Footer from '../Footer/Footer';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
@@ -104,7 +104,9 @@ const CourseHeader = forwardRef((props, ref) => {
                     >
                         {isLoading ? <Skeleton /> : courseBreadcrumb}
                     </Breadcrumb>
-                    <div className={`${styles.headerItem} ${styles.headerImageContainer}`}>
+                    <div
+                        className={`${styles.headerItem} ${styles.headerImageContainer}`}
+                    >
                         {isLoading ? (
                             <Skeleton height={337.5} />
                         ) : (
@@ -928,10 +930,12 @@ const CoursePage = () => {
     });
     const coursesData = DataContext();
     const { courseId } = useParams();
+    const navigate = useNavigate();
     const course = coursesData.courses.find(
         (course) => course.id === parseInt(courseId)
     );
-    // if (coursesData.isLoading) return <h1>Hi</h1>;
+    if (!coursesData.isLoading && course === undefined)
+        navigate('/error', { replace: true });
     return (
         <>
             {coursesData.isLoading ? undefined : (

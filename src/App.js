@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'rsuite/dist/rsuite.min.css';
 import './styles/App.css';
 import CourseDataProvider from './components/CourseDataProvider/CourseDataProvider';
 import Navbar from './components/Navbar/Navbar';
