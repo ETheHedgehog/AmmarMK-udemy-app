@@ -53,3 +53,19 @@
     margin: 2em;
     font-size: 0.75em;
 }
+
+@media only screen and (max-width: 726px) {
+    .footerContainer {
+        flex-direction: column;
+    }
+
+    .footerItem {
+        max-width: none;
+        order: 1;
+    }
+
+    .footerItemBtn {
+        order: 0;
+    }
+
+}

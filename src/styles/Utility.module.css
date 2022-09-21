@@ -65,6 +65,7 @@
 }
 
 .btnOutline:hover {
+    text-decoration: none;
     background-color: rgba(0, 0, 0, .04);
 }
 
